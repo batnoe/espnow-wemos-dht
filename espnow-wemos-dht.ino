@@ -42,13 +42,13 @@ void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
 
 void getReadings(){
   // Read Temperature
-  temperature = dht.readTemperature();
+  /*temperature = dht.readTemperature();
   // Read temperature as Fahrenheit (isFahrenheit = true)
   //float t = dht.readTemperature(true);
   if (isnan(temperature)){
     Serial.println("Failed to read from DHT");
     temperature = 0.0;
-  }
+  } */
   humidity = dht.readHumidity();
   if (isnan(humidity)){
     Serial.println("Failed to read from DHT");
