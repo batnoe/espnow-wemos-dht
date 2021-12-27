@@ -5,12 +5,14 @@
 #include <DHT.h>
 
 uint8_t broadcastAddress[] = {0xc8, 0xc9, 0xa3, 0xd2, 0x5a, 0xc8};
+#define BOARD_ID 2
+
 #define DHTPIN 13    
 #define DHTTYPE    DHT22     // DHT 22 (AM2302)
 DHT dht(DHTPIN, DHTTYPE);
 
 // Define variables to store DHT readings to be sent
-float temperature;
+//float temperature;
 float humidity;
 
 // Updates DHT readings every 10 seconds
@@ -21,7 +23,8 @@ unsigned long previousMillis = 0;    // will store last time DHT was updated
 String success;
 
 typedef struct struct_message {
-    float temp;
+    int id;
+    //float temp;
     float hum;
 } struct_message;
 struct_message DHTReadings;
@@ -56,8 +59,6 @@ void getReadings(){
 void setup() {
   // Init Serial Monitor
   Serial.begin(115200);
-
-  // Init DHT sensor
   dht.begin();
  
   // Set device as a Wi-Fi Station
@@ -91,7 +92,8 @@ void loop() {
     getReadings();
 
     //Set values to send
-    DHTReadings.temp = temperature;
+    DHTReadings.id = BOARD_ID;
+    //DHTReadings.temp = temperature;
     DHTReadings.hum = humidity;
 
     // Send message via ESP-NOW
